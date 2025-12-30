@@ -53,9 +53,111 @@ SA-YOLO integrates three lightweight attention blocks:
 
 ## Installation
 
-Clone and install in editable mode:
+### 1) Clone and install in editable mode
 
 ```bash
 git clone https://github.com/kjh86/SA-YOLO.git
 cd SA-YOLO
 pip install -e .
+```
+
+---
+
+### 2) Verify installation
+
+```bash
+python -c "import ultralytics; print('ultralytics import OK')"
+yolo -v
+```
+
+---
+
+## Quick Start
+
+### 3) Training
+
+```bash
+yolo detect train \
+  model=ultralytics/cfg/models/custom/yolov12-stage-aware.yaml \
+  data=your_dataset.yaml \
+  epochs=100 \
+  imgsz=640
+```
+
+---
+
+### 4) Evaluation
+
+```bash
+yolo detect val \
+  model=runs/detect/train/weights/best.pt \
+  data=your_dataset.yaml
+```
+
+---
+
+### 5) Inference
+
+```bash
+yolo detect predict \
+  model=runs/detect/train/weights/best.pt \
+  source=your_video_or_images
+```
+
+---
+
+## Environment
+
+```text
+Python       >= 3.9
+PyTorch      >= 1.13
+Ultralytics  8.3.96 (modified)
+```
+
+---
+
+## Repository Structure
+
+```text
+SA-YOLO/
+├── ultralytics/                      # Modified Ultralytics YOLO source (v8.3.96)
+│   ├── nn/
+│   │   ├── tasks.py                  # Modified model parsing / registration
+│   │   └── modules/conv.py           # Custom attention modules
+│   └── cfg/models/custom/            # SA-YOLO model YAMLs
+├── README.md
+├── LICENSE
+└── .gitignore
+```
+
+---
+
+## Citation
+
+If you use this work, please cite:
+
+```bibtex
+@article{kim2025sayolo,
+  title   = {SA-YOLO: Stage-Aware Attention for Real-Time Smoke and Fire Detection},
+  author  = {Kim, Jin},
+  journal = {IEEE Access},
+  year    = {2025}
+}
+```
+
+---
+
+## License
+
+- Ultralytics YOLO source code: **AGPL-3.0**
+- SA-YOLO modifications: **Apache-2.0**
+
+> This repository includes AGPL-licensed components. Please ensure compliance with the license terms.
+
+---
+
+## Contact
+
+For questions or collaborations, please open an issue on GitHub.
+
+
