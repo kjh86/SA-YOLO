@@ -158,6 +158,6 @@ If you use this work, please cite:
 
 ## Contact
 
-For questions or collaborations, please open an issue on GitHub..
+For questions or collaborations, please open an issue on GitHub.
 
 
