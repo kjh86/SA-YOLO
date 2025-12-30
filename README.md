@@ -1,7 +1,7 @@
 # SA-YOLO
 
 **SA-YOLO (Stage-Aware YOLO)** is an attention-centric real-time object detector for **smoke and fire detection** in surveillance environments.  
-This repository provides the **official implementation** of SA-YOLO built on top of a **modified Ultralytics YOLO (v8.3.96)** codebase.
+This repository provides the **reference implementation** of SA-YOLO built on top of a **modified Ultralytics YOLO (v8.3.96)** codebase.
 
 ---
 
@@ -39,15 +39,6 @@ SA-YOLO integrates three lightweight attention blocks:
 - **Higher-level stages (e.g., P5)** → emphasize **global context / semantic modeling**
 
 > Internally, this implementation extends Ultralytics model parsing + module registration so stage-aware attention can be inserted cleanly and reproduced consistently.
-
----
-
-## Environment
-
-- **Base framework**: Ultralytics YOLO `v8.3.96`
-- **Language**: Python
-- **DL framework**: PyTorch
-- Tested with: **Python 3.9**, **PyTorch ≥ 1.13**
 
 ---
 
@@ -149,10 +140,14 @@ If you use this work, please cite:
 
 ## License
 
-- Ultralytics YOLO source code: **AGPL-3.0**
-- SA-YOLO modifications: **Apache-2.0**
+This repository contains a modified copy of **Ultralytics YOLO** (licensed under **AGPL-3.0**).
+Therefore, redistribution and use of this codebase must comply with the **AGPL-3.0** terms.
 
-> This repository includes AGPL-licensed components. Please ensure compliance with the license terms.
+- Ultralytics YOLO and any derivative modifications within `ultralytics/`: **AGPL-3.0**
+- Additional original files written specifically for SA-YOLO (when not a derivative of Ultralytics code): **Apache-2.0**
+
+> If you plan to use this repository in a product or a network-accessible service, please review AGPL-3.0 obligations carefully.
+
 
 ---
 
