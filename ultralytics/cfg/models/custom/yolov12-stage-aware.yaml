@@ -1,4 +1,6 @@
-nc: 80
+# SA-YOLO: Stage-Aware Attention configuration (this work)
+# Reference implementation for IEEE Access submission
+nc: 2
 scales:
   n: [0.50, 0.25, 1024]
   # s: [0.50, 0.50, 1024] # summary: 272 layers, 9,284,096 parameters, 9,284,080 gradients, 21.7 GFLOPs
