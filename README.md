@@ -140,14 +140,31 @@ If you use this work, please cite:
 
 ## License
 
-This repository contains a modified copy of **Ultralytics YOLO** (licensed under **AGPL-3.0**).
-Therefore, redistribution and use of this codebase must comply with the **AGPL-3.0** terms.
+This repository includes a **modified copy of Ultralytics YOLO**, which is licensed under the  
+**GNU Affero General Public License v3.0 (AGPL-3.0)**.
 
-- Ultralytics YOLO and any derivative modifications within `ultralytics/`: **AGPL-3.0**
-- Additional original files written specifically for SA-YOLO (when not a derivative of Ultralytics code): **Apache-2.0**
+### License scope
 
-> If you plan to use this repository in a product or a network-accessible service, please review AGPL-3.0 obligations carefully.
+- The following files are **derivative works of Ultralytics YOLO** and are therefore licensed under **AGPL-3.0**:
+  - `ultralytics/nn/tasks.py`
+  - `ultralytics/nn/modules/conv.py`
 
+- The following components are **original contributions for SA-YOLO** and are licensed under **Apache-2.0**:
+  - SA-YOLO model configuration files (`ultralytics/cfg/models/custom/*.yaml`)
+  - Documentation files (e.g., `README.md`)
+  - Other standalone files that are not derived from Ultralytics source code
+
+### Important note
+
+Any file that is copied from, modified from, or tightly integrated with Ultralytics YOLO code
+is considered a **derivative work** and remains subject to **AGPL-3.0**, regardless of additional
+original contributions.
+
+If you plan to use this repository in a **product or network-accessible service**, please ensure
+that you fully understand and comply with the obligations of **AGPL-3.0**, including source
+availability requirements.
+
+See the `LICENSE` file for the full license text.
 
 ---
 
