@@ -1,120 +1,52 @@
-# SA-YOLO
-SA-YOLO (Stage-Aware YOLO) is an attention-centric real-time object detector designed for smoke and fire detection.
-This repository provides the official implementation of SA-YOLO, built on top of a modified Ultralytics YOLO framework (v8.3.96).
+# SA-YOLO (Stage-Aware YOLO)
 
-Overview
+SA-YOLO is an attention-centric real-time detector for **smoke and fire detection**.  
+This repository provides an official implementation built on top of **Ultralytics YOLO (base: v8.3.96)** with stage-aware attention modules.
 
-Detecting smoke and fire in real-world surveillance scenarios is challenging due to:
+---
 
-small-scale flame regions,
+## Highlights
+- **Stage-Aware Attention**: different lightweight attention modules are assigned to different feature stages (P3–P5)
+- **Plug-and-Play Modules**: modules preserve feature map shape (drop-in replacement)
+- **Real-time Friendly**: designed for practical surveillance scenarios
+- **Robust under Degradation**: improved performance under smoke-only and fog-degraded conditions
 
-low-contrast and diffused smoke patterns,
+---
 
-and large appearance variations across scenes.
+## Quick Start
 
-To address these issues, SA-YOLO introduces a Stage-Aware Attention strategy, where different attention mechanisms are selectively applied to different feature stages according to their semantic roles.
+###1) Clone & Install
+    git clone https://github.com/kjh86/SA-YOLO.git
+    cd SA-YOLO
+    pip install -e .
 
-Key Contributions
+2) Verify Installation
+    yolo help
 
-Stage-Aware Attention Design
+Training / Evaluation
 
-Lightweight attention modules are selectively assigned to feature stages (P3–P5).
+Update paths to your dataset YAML and model YAML.
 
-Efficient and Modular Architecture
+Train
+    yolo detect train \
+    model=ultralytics/cfg/models/custom/yolov12-stage-aware.yaml \
+    data=path/to/your_dataset.yaml \
+    epochs=100 imgsz=640
 
-All attention blocks are plug-and-play and preserve feature map dimensions.
+Validate
+    yolo detect val \
+    model=runs/detect/train/weights/best.pt \
+    data=path/to/your_dataset.yaml
 
-Real-Time Performance
-
-Designed to maintain real-time inference speed while improving detection accuracy.
-
-Robustness under Degradation
-
-Improved performance under smoke-only and fog-degraded conditions.
-
-Model Architecture
-
-SA-YOLO extends Ultralytics YOLO by integrating the following attention modules:
-
-ECA: Efficient Channel Attention
-
-ResECA: Residual variant of ECA
-
-PAM: Parallel Attention Module
-
-Stage-Aware Assignment:
-
-Low-level stages emphasize local texture preservation.
-
-High-level stages emphasize global context modeling.
-
-The implementation modifies internal model parsing and module registration logic to support stage-aware attention.
-
-Implementation Details
-
-Base Framework: Ultralytics YOLO v8.3.96
-
-Language: Python
-
-Deep Learning Framework: PyTorch
-
-License: AGPL-3.0 (Ultralytics) + Apache-2.0 (this repository)
-
-This repository contains a modified version of Ultralytics YOLO, extended to support SA-YOLO modules.
-
-⚙️ Installation
-
-Clone the repository and install in editable mode:
-
-git clone https://github.com/kjh86/SA-YOLO.git
-cd SA-YOLO
-pip install -e .
-
-
-Tested with ultralytics==8.3.96, Python 3.9, and PyTorch ≥ 1.13.
-
-Training
-
-Example training command:
-
-yolo detect train \
-  model=configs/sa-yolo.yaml \
-  data=your_dataset.yaml \
-  epochs=100 \
-  imgsz=640
-
-Evaluation
-yolo detect val \
-  model=runs/detect/train/weights/best.pt \
-  data=your_dataset.yaml
-
-Repository Structure
-SA-YOLO/
-├── ultralytics/          # Modified Ultralytics YOLO source (v8.3.96)
-├── configs/              # SA-YOLO model configuration files
-├── README.md
-├── LICENSE
-└── .gitignore
-
-Citation
-
-If you find this work useful, please consider citing:
-
-@article{kim2025sayolo,
-  title   = {SA-YOLO: Stage-Aware Attention for Real-Time Smoke and Fire Detection},
-  author  = {Kim, Jin},
-  journal = {IEEE Access},
-  year    = {2025}
-}
-
-License
-
-This project is released for academic and research purposes.
-
-Ultralytics YOLO components follow the AGPL-3.0 license.
-
-SA-YOLO modifications are provided under Apache-2.0.
-
-Contact
-
-For questions or collaborations, feel free to open an issue or contact the author.
+What’s Inside (Key Modifications)
+This repository includes:
+Modified Ultralytics source (base v8.3.96) under ultralytics/
+SA-YOLO attention modules
+ECA (Efficient Channel Attention)
+ResECA (Residual ECA)
+PAM (Parallel Attention Module)
+Model configs for SA-YOLO and ablations under:
+ultralytics/cfg/models/custom/
+Core changes are typically in:
+ultralytics/nn/tasks.py (model parsing / module registration)
+ultralytics/nn/modules/conv.py (custom modules or registry hooks)
