@@ -1,52 +1,61 @@
-# SA-YOLO (Stage-Aware YOLO)
+# SA-YOLO
 
-SA-YOLO is an attention-centric real-time detector for **smoke and fire detection**.  
-This repository provides an official implementation built on top of **Ultralytics YOLO (base: v8.3.96)** with stage-aware attention modules.
+**SA-YOLO (Stage-Aware YOLO)** is an attention-centric real-time object detector for **smoke and fire detection** in surveillance environments.  
+This repository provides the **official implementation** of SA-YOLO built on top of a **modified Ultralytics YOLO (v8.3.96)** codebase.
 
 ---
 
 ## Highlights
-- **Stage-Aware Attention**: different lightweight attention modules are assigned to different feature stages (P3–P5)
-- **Plug-and-Play Modules**: modules preserve feature map shape (drop-in replacement)
-- **Real-time Friendly**: designed for practical surveillance scenarios
-- **Robust under Degradation**: improved performance under smoke-only and fog-degraded conditions
+
+- **Stage-Aware Attention (P3–P5)**: assigns different lightweight attention modules per feature stage based on semantic roles.
+- **Plug-and-Play Modules**: attention blocks preserve feature map shape (easy integration and ablation).
+- **Real-Time Oriented**: designed to retain real-time inference while improving detection quality.
+- **Robustness**: improved performance under **smoke-only** and **fog-degraded** conditions.
 
 ---
 
-## Quick Start
+## Motivation
 
-###1) Clone & Install
-    git clone https://github.com/kjh86/SA-YOLO.git
-    cd SA-YOLO
-    pip install -e .
+Detecting smoke and fire in real-world CCTV footage is difficult due to:
 
-2) Verify Installation
-    yolo help
+- **Small-scale flames** (tiny, sparse regions)
+- **Low-contrast / diffused smoke** (weak boundaries and global spread)
+- **Large scene variations** (lighting, weather, camera distance, blur)
 
-Training / Evaluation
+SA-YOLO addresses these issues with **stage-aware feature refinement**, applying attention differently across stages to better preserve **local textures** (low-level) and enhance **global context** (high-level).
 
-Update paths to your dataset YAML and model YAML.
+---
 
-Train
-    yolo detect train \
-    model=ultralytics/cfg/models/custom/yolov12-stage-aware.yaml \
-    data=path/to/your_dataset.yaml \
-    epochs=100 imgsz=640
+## Method: Stage-Aware Attention
 
-Validate
-    yolo detect val \
-    model=runs/detect/train/weights/best.pt \
-    data=path/to/your_dataset.yaml
+SA-YOLO integrates three lightweight attention blocks:
 
-What’s Inside (Key Modifications)
-This repository includes:
-Modified Ultralytics source (base v8.3.96) under ultralytics/
-SA-YOLO attention modules
-ECA (Efficient Channel Attention)
-ResECA (Residual ECA)
-PAM (Parallel Attention Module)
-Model configs for SA-YOLO and ablations under:
-ultralytics/cfg/models/custom/
-Core changes are typically in:
-ultralytics/nn/tasks.py (model parsing / module registration)
-ultralytics/nn/modules/conv.py (custom modules or registry hooks)
+- **ECA**: Efficient Channel Attention  
+- **ResECA**: Residual ECA variant  
+- **PAM**: Parallel Attention Module  
+
+**Stage-aware assignment (conceptual):**
+- **Lower-level stages (e.g., P3)** → emphasize **local texture / edge preservation**
+- **Higher-level stages (e.g., P5)** → emphasize **global context / semantic modeling**
+
+> Internally, this implementation extends Ultralytics model parsing + module registration so stage-aware attention can be inserted cleanly and reproduced consistently.
+
+---
+
+## Environment
+
+- **Base framework**: Ultralytics YOLO `v8.3.96`
+- **Language**: Python
+- **DL framework**: PyTorch
+- Tested with: **Python 3.9**, **PyTorch ≥ 1.13**
+
+---
+
+## Installation
+
+Clone and install in editable mode:
+
+```bash
+git clone https://github.com/kjh86/SA-YOLO.git
+cd SA-YOLO
+pip install -e .
